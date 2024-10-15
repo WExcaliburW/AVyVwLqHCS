@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buton Örneği</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+            position: relative;
+            overflow: hidden;
+            background-color: black;
+            color: white;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        .heart {
+            position: absolute;
+            font-size: 24px;
+            opacity: 1;
+            animation: fall 2s forwards;
+        }
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+        #message {
+            display: none;
+            opacity: 0;
+            transition: opacity 1s; /* Geçiş efekti */
+        }
+    </style>
+</head>
+<body>
+    <h1>Tıklarmısın 🫠</h1>
+    <button id="myButton">Tıkla!</button>
+    <p id="message">Artık sevgilimsin 👉👈</p>
+
+    <script>
+        let rainingHearts = false;
+
+        document.getElementById("myButton").onclick = function() {
+            if (!rainingHearts) {
+                rainingHearts = true;
+                const message = document.getElementById("message");
+
+                // Yazıyı yavaşça göster
+                message.style.display = "block";
+                setTimeout(() => {
+                    message.style.opacity = 1;
+                }, 10); // Geçiş efekti için küçük bir gecikme
+
+                // Kalp yağmurunu başlat
+                setInterval(() => {
+                    const heart = document.createElement("span");
+                    heart.className = "heart";
+                    heart.innerText = "🤍";
+                    heart.style.left = Math.random() * window.innerWidth + 'px';
+                    heart.style.top = '-50px'; // Üstten düşmeye başlaması için
+
+                    document.body.appendChild(heart);
+
+                    // Kalbi kaldırma
+                    setTimeout(() => {
+                        document.body.removeChild(heart);
+                    }, 2000);
+                }, 300); // Her 300 milisaniyede bir kalp düşmesi
+            }
+        };
+    </script>
+</body>
+</html>
